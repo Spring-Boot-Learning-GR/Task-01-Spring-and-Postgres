@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return new ResponseEntity<>(userService.addOrUpdateUser(user), HttpStatus.CREATED);
     }
 
     @PutMapping()
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
         return new ResponseEntity<>(userService.addOrUpdateUser(user), HttpStatus.OK);
     }
 

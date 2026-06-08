@@ -22,7 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotBlank
+    @NotBlank(message = "Name should not be blank !")
     private String name;
 
 }
