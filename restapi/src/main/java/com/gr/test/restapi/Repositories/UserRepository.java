@@ -1,11 +1,9 @@
 package com.gr.test.restapi.Repositories;
 
-import com.gr.test.restapi.Models.TestUser;
+import com.gr.test.restapi.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface TestRepository extends JpaRepository<TestUser, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 }
