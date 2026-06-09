@@ -18,6 +18,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class User {
 
+    public User(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

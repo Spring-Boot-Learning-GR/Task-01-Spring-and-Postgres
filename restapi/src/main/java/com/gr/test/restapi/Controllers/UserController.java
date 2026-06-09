@@ -1,7 +1,10 @@
 package com.gr.test.restapi.Controllers;
 
+import com.gr.test.restapi.Models.DTO.UserRequest;
+import com.gr.test.restapi.Models.DTO.UserResponse;
 import com.gr.test.restapi.Models.User;
 import com.gr.test.restapi.Services.UserService;
+import com.gr.test.restapi.Utils.UserMapperUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,23 +22,23 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public  ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    public  ResponseEntity<List<UserResponse>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers().stream().map(UserMapperUtil::toUserResponse).toList(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUserById(@PathVariable int id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    public ResponseEntity<UserResponse> getUserById(@PathVariable int id) {
+        return new ResponseEntity<>(UserMapperUtil.toUserResponse(userService.getUserById(id)), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        return new ResponseEntity<>(userService.addOrUpdateUser(user), HttpStatus.CREATED);
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest userRequest) {
+        return new ResponseEntity<>(UserMapperUtil.toUserResponse(userService.addOrUpdateUser(UserMapperUtil.toUser(userRequest))), HttpStatus.CREATED);
     }
 
     @PutMapping()
-    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
-        return new ResponseEntity<>(userService.addOrUpdateUser(user), HttpStatus.OK);
+    public ResponseEntity<UserResponse> updateUser(@Valid @RequestBody UserRequest userRequest) {
+        return new ResponseEntity<>(UserMapperUtil.toUserResponse(userService.addOrUpdateUser(UserMapperUtil.toUser(userRequest))), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
